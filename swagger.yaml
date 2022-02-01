@@ -43,6 +43,19 @@ paths:
         500:
           description: 'Server Error'
 
+
+  /users/mock:
+    post:
+      tags:
+        - users
+      summary: Add Mock Users
+      responses:
+        201:
+          description: 'Created'
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'
   # [GET] users/id
   /users/{id}:
     get:

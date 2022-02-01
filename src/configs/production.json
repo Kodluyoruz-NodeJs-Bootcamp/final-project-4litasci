@@ -1,18 +1,30 @@
 {
-    "env": "production",
-    "dbConfig": {
-        "host": "localhost",
-        "user": "root",
-        "password": "password",
-        "database": "test"
-    },
-    "secretKey": "secretKey",
-    "log": {
-        "format": "combined",
-        "dir": "../logs"
-    },
-    "cors": {
-        "origin": "your.domain.com",
-        "credentials": true
-    }
+  "env": "production",
+  "dbConfig": {
+    "host": "localhost",
+    "user": "root",
+    "password": "password",
+    "database": "test"
+  },
+  "secretKey": "secretKey",
+  "log": {
+    "format": "combined",
+    "dir": "../logs"
+  },
+  "cors": {
+    "origin": "your.domain.com",
+    "credentials": true
+  },
+  "mockUsers": [
+    { "email": "cboynes0@vistaprint.com", "password": "YdK2dzSu3V3F" },
+    { "email": "lgrealish1@arstechnica.com", "password": "cLhnle" },
+    { "email": "dmartell2@nymag.com", "password": "rDPWiH" },
+    { "email": "emcculley3@cisco.com", "password": "JysPH24c9d" },
+    { "email": "ccole4@gravatar.com", "password": "nbhysVl" },
+    { "email": "ntripett5@psu.edu", "password": "v95T5StjT3" },
+    { "email": "lvamplus6@prnewswire.com", "password": "g1ksD08Y1c" },
+    { "email": "cczaple7@dailymotion.com", "password": "3ioIZBlD" },
+    { "email": "mdeville8@privacy.gov.au", "password": "BG68aoHzY" },
+    { "email": "fyakobowitz9@e-recht24.de", "password": "Fbre2KKrAg" }
+  ]
 }

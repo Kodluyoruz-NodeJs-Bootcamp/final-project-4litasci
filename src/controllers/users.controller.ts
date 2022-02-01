@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import { CreateUserDto } from '@dtos/users.dto';
 import { User } from '@interfaces/users.interface';
 import userService from '@services/users.service';
+import config from 'config';
 
 class UsersController {
   public userService = new userService();
@@ -33,6 +34,21 @@ class UsersController {
       const createUserData: User = await this.userService.createUser(userData);
 
       res.status(201).json({ data: createUserData, message: 'created' });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public createMockUsers = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const userDataArray: CreateUserDto[] = config.get('mockUsers');
+      const newUsers: User[] = [];
+      for (const userData of userDataArray) {
+        const newUser: User = await this.userService.createUser(userData);
+        newUsers.push(newUser);
+      }
+
+      res.status(201).json({ data: newUsers, message: 'created' });
     } catch (error) {
       next(error);
     }
