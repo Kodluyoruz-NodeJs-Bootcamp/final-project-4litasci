@@ -5,14 +5,14 @@ import { dbConfig } from '@interfaces/db.interface';
 
 const { host, user, password, database }: dbConfig = config.get('dbConfig');
 export const dbConnection: ConnectionOptions = {
-  type: 'postgres',
+  type: 'mysql',
   host: host,
-  port: 5432,
+  port: 3306,
   username: user,
   password: password,
   database: database,
   synchronize: true,
-  logging: false,
+  logging: true,
   entities: [join(__dirname, '../**/*.entity{.ts,.js}')],
   migrations: [join(__dirname, '../**/*.migration{.ts,.js}')],
   subscribers: [join(__dirname, '../**/*.subscriber{.ts,.js}')],

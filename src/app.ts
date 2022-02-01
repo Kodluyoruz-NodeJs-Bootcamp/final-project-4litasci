@@ -47,7 +47,11 @@ class App {
   }
 
   private connectToDatabase() {
-    createConnection(dbConnection);
+    createConnection(dbConnection)
+      .then(connection => {
+        console.log('DB connection ok');
+      })
+      .catch(error => console.log(error));
   }
 
   private initializeMiddlewares() {
