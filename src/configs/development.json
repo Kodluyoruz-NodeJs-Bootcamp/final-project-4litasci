@@ -12,7 +12,7 @@
     "dir": "../logs"
   },
   "cors": {
-    "origin": true,
+    "origin": "*",
     "credentials": true
   },
   "mockUsers": [

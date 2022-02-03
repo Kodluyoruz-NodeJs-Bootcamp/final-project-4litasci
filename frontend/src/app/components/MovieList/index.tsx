@@ -15,6 +15,7 @@ import FirstPageIcon from '@mui/icons-material/FirstPage';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
+import { Card, ImageListItem } from '@mui/material';
 
 function TablePaginationActions(props) {
   const theme = useTheme();
@@ -91,7 +92,7 @@ function createData(name, description, thumbnail, createDate) {
 
 export default function CustomPaginationActionsTable(props) {
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const { movieList } = props;
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
@@ -121,11 +122,19 @@ export default function CustomPaginationActionsTable(props) {
               <TableCell component="th" scope="row">
                 {row.name}
               </TableCell>
-              <TableCell style={{ width: 160 }} align="right">
-                {row.calories}
+              <TableCell component="th" scope="row">
+                <Card variant="outlined">
+                  <img
+                    src={`${row.thumbnail}?w=164&h=164&fit=crop&auto=format`}
+                    width={200}
+                    height={200}
+                    loading="lazy"
+                  />
+                </Card>
               </TableCell>
-              <TableCell style={{ width: 160 }} align="right">
-                {row.fat}
+              <TableCell align="left">{row.description}</TableCell>
+              <TableCell style={{ width: 160 }} align="left">
+                {row.createdAt}
               </TableCell>
             </TableRow>
           ))}
@@ -139,7 +148,7 @@ export default function CustomPaginationActionsTable(props) {
         <TableFooter>
           <TableRow>
             <TablePagination
-              rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
+              rowsPerPageOptions={[10, 50, 100, { label: 'All', value: -1 }]}
               colSpan={3}
               count={movieList.length}
               rowsPerPage={rowsPerPage}

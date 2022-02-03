@@ -2,12 +2,17 @@ import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
 import CustomPaginationActionsTable from '../../components/MovieList';
 import { Container } from '@mui/material';
-const baseURL = "https://jsonplaceholder.typicode.com/posts";
+import axios from 'axios';
+const baseURL = 'http://127.0.0.1:3000';
 export function HomePage() {
-  const [movieList, setMovies] = React.useState(null);
+  const [movieList, setMovies] = React.useState([]);
   React.useEffect(() => {
     console.log('opened');
-  });
+    axios.get(`${baseURL}/movies`).then(response => {
+      console.log(response.data.data);
+      setMovies(response.data.data);
+    });
+  }, []);
   return (
     <>
       <Helmet>
@@ -15,7 +20,9 @@ export function HomePage() {
         <meta name="description" content="A Boilerplate application homepage" />
       </Helmet>
       <Container maxWidth="lg">
-        <CustomPaginationActionsTable movieList={[]} />
+        <CustomPaginationActionsTable
+          movieList={movieList.length > 0 ? movieList : []}
+        />
       </Container>
     </>
   );
