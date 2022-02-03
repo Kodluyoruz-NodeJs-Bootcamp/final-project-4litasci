@@ -17,6 +17,7 @@ class MoviesRoute implements Routes {
     this.router.get(`${this.path}`, this.moviesController.getMovies);
     this.router.get(`${this.path}/:id(\\d+)`, this.moviesController.getMovieById);
     this.router.post(`${this.path}`, validationMiddleware(CreateMovieDto, 'body'), this.moviesController.createMovie);
+    this.router.post(`${this.path}/mock`, this.moviesController.createMockMovies);
     this.router.put(`${this.path}/:id(\\d+)`, validationMiddleware(CreateMovieDto, 'body', true), this.moviesController.updateMovie);
     this.router.delete(`${this.path}/:id(\\d+)`, this.moviesController.deleteMovie);
   }

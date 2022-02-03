@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import MovieService from '@services/movie.service';
 import { Movie } from '@interfaces/movies.interface';
 import { CreateMovieDto } from '@dtos/movies.dto';
+import config from 'config';
 
 class MoviesController {
   public movieService = new MovieService();
@@ -29,10 +30,25 @@ class MoviesController {
 
   public createMovie = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const userData: CreateMovieDto = req.body;
-      const createMovieData: Movie = await this.movieService.createMovie(userData);
+      const movieData: CreateMovieDto = req.body;
+      const createMovieData: Movie = await this.movieService.createMovie(movieData);
 
       res.status(201).json({ data: createMovieData, message: 'created' });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public createMockMovies = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const movieDataArray: CreateMovieDto[] = config.get('mockMovies');
+      const newMovies: Movie[] = [];
+      for (const movieData of movieDataArray) {
+        const newMovie: Movie = await this.movieService.createMovie(movieData);
+        newMovies.push(newMovie);
+      }
+
+      res.status(201).json({ data: newMovies, message: 'created' });
     } catch (error) {
       next(error);
     }
@@ -41,8 +57,8 @@ class MoviesController {
   public updateMovie = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const movieId = Number(req.params.id);
-      const userData: CreateMovieDto = req.body;
-      const updateMovieData: Movie = await this.movieService.updateMovie(movieId, userData);
+      const movieData: CreateMovieDto = req.body;
+      const updateMovieData: Movie = await this.movieService.updateMovie(movieId, movieData);
 
       res.status(200).json({ data: updateMovieData, message: 'updated' });
     } catch (error) {
