@@ -5,10 +5,9 @@ import { Container } from '@mui/material';
 import axios from 'axios';
 import Navbar from "../../components/Navbar";
 const baseURL = 'http://127.0.0.1:3000';
-export function HomePage() {
+export function ProfilePage() {
   const [movieList, setMovies] = React.useState([]);
   React.useEffect(() => {
-    console.log('opened');
     axios.get(`${baseURL}/movies`).then(response => {
       console.log(response.data.data);
       setMovies(response.data.data);
@@ -18,7 +17,7 @@ export function HomePage() {
     <>
       <Helmet>
         <title>MyHome</title>
-        <meta name="description" content="MYimdb Home" />
+        <meta name="description" content="Profile" />
       </Helmet>
       <Container maxWidth="lg">
         <Navbar />

@@ -7,6 +7,9 @@ import { GlobalStyle } from 'styles/global-styles';
 import { HomePage } from './pages/HomePage/Loadable';
 import { NotFoundPage } from './components/NotFoundPage/Loadable';
 import { useTranslation } from 'react-i18next';
+import { RegisterPage } from './pages/Register/Loadable';
+import { LoginPage } from "./pages/Login/Loadable";
+import { ProfilePage } from "./pages/Profile/Loadable";
 
 export function App() {
   const { i18n } = useTranslation();
@@ -22,6 +25,9 @@ export function App() {
 
       <Switch>
         <Route exact path="/" component={HomePage} />
+        <Route exact path="/register" component={RegisterPage} />
+        <Route exact path="/login" component={LoginPage} />
+        <Route exact path="/profile" component={ProfilePage} />
         <Route component={NotFoundPage} />
       </Switch>
       <GlobalStyle />

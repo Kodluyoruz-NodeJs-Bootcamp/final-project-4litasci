@@ -6,16 +6,15 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
-import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
-import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import axios from 'axios';
+import { Button } from '@mui/material';
+import { useHistory } from 'react-router-dom';
+const baseURL = 'http://127.0.0.1:3000';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -58,6 +57,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function Navbar(props) {
+  const history = useHistory();
   const [searchValue, setSearchValue] = React.useState();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
@@ -65,7 +65,7 @@ export default function Navbar(props) {
   const [userLoggedIn, setUserLoggedIn] = React.useState(false);
 
   React.useEffect(() => {
-    let authToken = sessionStorage.getItem('Auth Token');
+    let authToken = localStorage.getItem('Authorization');
     if (authToken) {
       setUserLoggedIn(true);
     }
@@ -95,6 +95,27 @@ export default function Navbar(props) {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
+  const handleLogout = () => {
+    const auth = localStorage.getItem('Authorization');
+    axios
+      .post(`${baseURL}/logout`, null, {
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+          Authorization: `Bearer ${auth}`,
+        },
+      })
+      .then(json => {
+        console.log(json);
+        localStorage.removeItem('Authorization');
+        handleMenuClose();
+        setUserLoggedIn(false);
+        history.push('/');
+      })
+      .catch(err => {
+        console.log(err.response.data);
+      });
+  };
+
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
     <Menu
@@ -112,8 +133,14 @@ export default function Navbar(props) {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Sign Out</MenuItem>
+      <MenuItem
+        onClick={() => {
+          history.push('/profile');
+        }}
+      >
+        Profile
+      </MenuItem>
+      <MenuItem onClick={handleLogout}>Sign Out</MenuItem>
     </Menu>
   );
 
@@ -185,7 +212,15 @@ export default function Navbar(props) {
       </Box>
     </>
   ) : (
-    <></>
+    <>
+      <Button color="inherit" onClick={() => history.push('/login')}>
+        Login
+      </Button>{' '}
+      |{' '}
+      <Button color="inherit" onClick={() => history.push('/register')}>
+        Register
+      </Button>
+    </>
   );
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -196,6 +231,9 @@ export default function Navbar(props) {
             noWrap
             component="div"
             sx={{ display: { xs: 'none', sm: 'block' } }}
+            onClick={() => {
+              history.push('/');
+            }}
           >
             MYimdb
           </Typography>
