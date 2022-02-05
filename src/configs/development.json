@@ -8,6 +8,8 @@
   },
   "facebookAuthID": "327932919249611",
   "facebookAuthSecret": "71095db9d1424fd81b0e5f2f50c92432",
+  "googleClientID": "159861426920-s5g9l6057ilmfrmis0ll2ts6gm5s182m.apps.googleusercontent.com",
+  "googleClientSecret": "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",
   "secretKey": "secretKey",
   "log": {
     "format": "dev",

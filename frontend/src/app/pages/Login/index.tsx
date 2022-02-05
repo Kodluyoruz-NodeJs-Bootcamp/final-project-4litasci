@@ -13,7 +13,13 @@ export function LoginPage() {
   const [password, setPassword] = useState('');
   const [infoValue, setInfoValue] = useState('');
   const [facebookUrl, setFacebookUrl] = useState('');
+  const [googleUrl, setGoogleUrl] = useState('');
   useEffect(() => {
+    getFacebookUrl();
+    getGoogleUrl();
+  }, []);
+
+  const getFacebookUrl = () => {
     axios
       .get(`${baseURL}/social/facebook`)
       .then(json => {
@@ -25,7 +31,21 @@ export function LoginPage() {
         console.log(err.response.data);
         //setInfoValue(err.response.data.message);
       });
-  }, []);
+  };
+
+  const getGoogleUrl = () => {
+    axios
+      .get(`${baseURL}/social/google`)
+      .then(json => {
+        console.log(json.data.data);
+        setGoogleUrl(json.data.data);
+        //history.push('/');
+      })
+      .catch(err => {
+        console.log(err.response.data);
+        //setInfoValue(err.response.data.message);
+      });
+  };
 
   const handleLogin = () => {
     const userJson = {
@@ -40,7 +60,6 @@ export function LoginPage() {
       })
       .then(json => {
         console.log(json);
-        localStorage.setItem('verySecureJWT', json.data.data.token);
         localStorage.setItem('Authorization', json.data.data.token);
         history.push('/');
       })
@@ -92,7 +111,7 @@ export function LoginPage() {
           <Button
             variant="contained"
             title="Login with Google"
-            onClick={handleLogin}
+            onClick={() => (window.location.href = googleUrl)}
           >
             Login with Google
           </Button>

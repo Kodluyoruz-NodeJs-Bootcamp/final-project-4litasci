@@ -8,9 +8,10 @@ import { HomePage } from './pages/HomePage/Loadable';
 import { NotFoundPage } from './components/NotFoundPage/Loadable';
 import { useTranslation } from 'react-i18next';
 import { RegisterPage } from './pages/Register/Loadable';
-import { LoginPage } from "./pages/Login/Loadable";
-import { ProfilePage } from "./pages/Profile/Loadable";
-import { FacebookAuth } from "./auth/facebook";
+import { LoginPage } from './pages/Login/Loadable';
+import { ProfilePage } from './pages/Profile/Loadable';
+import { FacebookAuth } from './auth/facebook';
+import { GoogleAuth } from './auth/google';
 
 export function App() {
   const { i18n } = useTranslation();
@@ -30,6 +31,7 @@ export function App() {
         <Route exact path="/login" component={LoginPage} />
         <Route exact path="/profile" component={ProfilePage} />
         <Route exact path="/authenticate/facebook" component={FacebookAuth} />
+        <Route exact path="/authenticate/google" component={GoogleAuth} />
         <Route component={NotFoundPage} />
       </Switch>
       <GlobalStyle />

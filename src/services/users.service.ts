@@ -5,7 +5,7 @@ import { UserEntity } from '@entities/users.entity';
 import { HttpException } from '@exceptions/HttpException';
 import { User } from '@interfaces/users.interface';
 import { isEmpty } from '@utils/util';
-import { DataStoredInToken, FacebookAuthUser, TokenData } from '@interfaces/auth.interface';
+import { DataStoredInToken, FacebookAuthUser, GoogleAuthUser, TokenData } from '@interfaces/auth.interface';
 import config from 'config';
 import { sign } from 'jsonwebtoken';
 
@@ -78,6 +78,34 @@ class UserService extends Repository<UserEntity> {
       return { cookie, findUser: createUserData, token };
     } else {
       if (findUser.provider === 2) {
+        const tokenData = this.createToken(findUser);
+        const cookie = this.createCookie(tokenData);
+        const token = tokenData.token;
+        return { cookie, findUser, token };
+      } else {
+        throw new HttpException(409, 'Wrong Provider');
+      }
+    }
+  }
+
+  public async validateGoogleUser(googleUser: GoogleAuthUser): Promise<{ cookie: string; findUser: User; token: string }> {
+    if (isEmpty(googleUser.email)) throw new HttpException(400, "You're not userId");
+
+    const findUser: User = await UserEntity.findOne({ where: { email: googleUser.email } });
+    if (!findUser) {
+      const hashedPassword = await hash('userData.password', 10);
+      const createUserData: User = await UserEntity.create({
+        email: googleUser.email,
+        fullName: googleUser.given_name + ' ' + googleUser.family_name,
+        password: hashedPassword,
+        provider: 3,
+      }).save();
+      const tokenData = this.createToken(createUserData);
+      const cookie = this.createCookie(tokenData);
+      const token = tokenData.token;
+      return { cookie, findUser: createUserData, token };
+    } else {
+      if (findUser.provider === 3) {
         const tokenData = this.createToken(findUser);
         const cookie = this.createCookie(tokenData);
         const token = tokenData.token;

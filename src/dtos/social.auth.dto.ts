@@ -1,6 +1,6 @@
 import { IsString } from 'class-validator';
 
-export class FacebookAuthDto {
+export class SocialAuthDto {
   @IsString()
   public authCode: string;
 }

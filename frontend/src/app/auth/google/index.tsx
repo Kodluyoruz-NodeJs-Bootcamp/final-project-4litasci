@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 const baseURL = 'http://127.0.0.1:3000';
 
-export function FacebookAuth(props) {
+export function GoogleAuth(props) {
   const history = useHistory();
   React.useEffect(() => {
     const params = queryString.parse(props.location.search);
@@ -16,7 +16,7 @@ export function FacebookAuth(props) {
         authCode: params.code,
       };
       axios
-        .post(`${baseURL}/social/facebook`, authJson, {
+        .post(`${baseURL}/social/google`, authJson, {
           headers: {
             'Content-type': 'application/json; charset=UTF-8',
           },
@@ -37,8 +37,8 @@ export function FacebookAuth(props) {
   return (
     <>
       <Helmet>
-        <title>Facebook Auth</title>
-        <meta name="description" content="MYimdb Facebook" />
+        <title>Google Auth</title>
+        <meta name="description" content="MYimdb Google" />
       </Helmet>
       <Container maxWidth="lg"></Container>
     </>

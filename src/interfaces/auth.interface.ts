@@ -20,3 +20,10 @@ export interface FacebookAuthUser {
   last_name: string;
   id: string;
 }
+
+export interface GoogleAuthUser {
+  email: string;
+  given_name: string;
+  family_name: string;
+  id: string;
+}
