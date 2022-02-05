@@ -113,6 +113,10 @@ export default function Navbar(props) {
       })
       .catch(err => {
         console.log(err.response.data);
+        localStorage.removeItem('Authorization');
+        handleMenuClose();
+        setUserLoggedIn(false);
+        history.push('/');
       });
   };
 
