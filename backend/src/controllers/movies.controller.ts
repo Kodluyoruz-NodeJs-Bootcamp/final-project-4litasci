@@ -18,6 +18,16 @@ class MoviesController {
     }
   };
 
+  public getMyMovies = async (req: RequestWithUser, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const findAllMoviesData: Movie[] = await this.movieService.findMyAllMovies(req.user);
+
+      res.status(200).json({ data: findAllMoviesData, message: 'findAll' });
+    } catch (error) {
+      next(error);
+    }
+  };
+
   public getMovieById = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const movieId = Number(req.params.id);

@@ -13,6 +13,11 @@ class MovieService extends Repository<MovieEntity> {
     return movies;
   }
 
+  public async findMyAllMovies(userData: User): Promise<Movie[]> {
+    const movies: Movie[] = await MovieEntity.find({ where: { creatorId: userData.id } });
+    return movies;
+  }
+
   public async findMovieById(movieId: number): Promise<Movie> {
     if (isEmpty(movieId)) throw new HttpException(400, "You're not movieId");
 

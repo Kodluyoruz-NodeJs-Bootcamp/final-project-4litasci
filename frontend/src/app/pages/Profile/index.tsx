@@ -1,17 +1,24 @@
 import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
 import MovieListContainer from '../../components/MovieList';
-import {Container, Typography} from '@mui/material';
+import { Container, Typography } from '@mui/material';
 import axios from 'axios';
-import Navbar from "../../components/Navbar";
+import Navbar from '../../components/Navbar';
 const baseURL = 'http://127.0.0.1:3000';
 export function ProfilePage() {
   const [movieList, setMovies] = React.useState([]);
   React.useEffect(() => {
-    axios.get(`${baseURL}/movies`).then(response => {
-      console.log(response.data.data);
-      setMovies(response.data.data);
-    });
+    const auth = localStorage.getItem('Authorization');
+    axios
+      .get(`${baseURL}/movies/my`, {
+        headers: {
+          Authorization: `Bearer ${auth}`,
+        },
+      })
+      .then(response => {
+        console.log(response.data.data);
+        setMovies(response.data.data);
+      });
   }, []);
   return (
     <>
@@ -25,7 +32,8 @@ export function ProfilePage() {
           My Movies
         </Typography>
         <MovieListContainer
-          movieList={movieList.length > 0 ? movieList : []} isMyLinked = {true}
+          movieList={movieList.length > 0 ? movieList : []}
+          isMyLinked={true}
         />
       </Container>
     </>

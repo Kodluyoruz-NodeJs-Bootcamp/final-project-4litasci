@@ -12,6 +12,8 @@ import { LoginPage } from './pages/Login/Loadable';
 import { ProfilePage } from './pages/Profile/Loadable';
 import { FacebookAuth } from './auth/facebook';
 import { GoogleAuth } from './auth/google';
+import { AddMovie } from './pages/Movie/AddMovie';
+import { AddActor } from './pages/Movie/AddActor';
 
 export function App() {
   const { i18n } = useTranslation();
@@ -30,6 +32,8 @@ export function App() {
         <Route exact path="/register" component={RegisterPage} />
         <Route exact path="/login" component={LoginPage} />
         <Route exact path="/profile" component={ProfilePage} />
+        <Route exact path="/profile/add/movie" component={AddMovie} />
+        <Route exact path="/profile/add/actor" component={AddActor} />
         <Route exact path="/authenticate/facebook" component={FacebookAuth} />
         <Route exact path="/authenticate/google" component={GoogleAuth} />
         <Route component={NotFoundPage} />

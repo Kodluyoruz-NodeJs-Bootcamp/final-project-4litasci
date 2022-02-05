@@ -1,7 +1,8 @@
-import { IsString, IsUrl } from 'class-validator';
+import { IsNotEmpty, IsString, IsUrl } from 'class-validator';
 
 export class CreateMovieDto {
   @IsString()
+  @IsNotEmpty()
   name: string;
 
   @IsString()
