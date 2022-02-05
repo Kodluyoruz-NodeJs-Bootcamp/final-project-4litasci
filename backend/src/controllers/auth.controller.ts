@@ -41,6 +41,16 @@ class AuthController {
       next(error);
     }
   };
+
+  public userValid = async (req: RequestWithUser, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const userData: User = req.user;
+      console.log('still alive', userData);
+      res.status(200).json({ message: 'validation ok' });
+    } catch (error) {
+      next(error);
+    }
+  };
 }
 
 export default AuthController;

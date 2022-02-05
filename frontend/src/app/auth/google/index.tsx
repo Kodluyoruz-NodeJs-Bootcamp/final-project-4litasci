@@ -24,7 +24,7 @@ export function GoogleAuth(props) {
         .then(json => {
           console.log(json);
           localStorage.setItem('Authorization', json.data.data.token);
-          history.push('/');
+          history.push('/profile');
         })
         .catch(err => {
           console.log(err.response.data);

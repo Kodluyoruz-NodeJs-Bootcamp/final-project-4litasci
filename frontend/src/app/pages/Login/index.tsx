@@ -61,7 +61,7 @@ export function LoginPage() {
       .then(json => {
         console.log(json);
         localStorage.setItem('Authorization', json.data.data.token);
-        history.push('/');
+        history.push('/profile');
       })
       .catch(err => {
         console.log(err.response.data);
@@ -76,7 +76,7 @@ export function LoginPage() {
       </Helmet>
       <Container maxWidth="lg">
         <Stack spacing={5}>
-          <Box></Box>
+          <Box />
           <TextField
             id="email"
             label="Email"
