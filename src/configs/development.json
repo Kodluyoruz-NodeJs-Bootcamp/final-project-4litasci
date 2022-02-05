@@ -6,6 +6,8 @@
     "password": "254ali254",
     "database": "MYimdb"
   },
+  "facebookAuthID": "327932919249611",
+  "facebookAuthSecret": "71095db9d1424fd81b0e5f2f50c92432",
   "secretKey": "secretKey",
   "log": {
     "format": "dev",

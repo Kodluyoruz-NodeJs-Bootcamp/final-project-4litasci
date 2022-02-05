@@ -5,5 +5,16 @@ export class CreateUserDto {
   public email: string;
 
   @IsString()
+  public fullName: string;
+
+  @IsString()
+  public password: string;
+}
+
+export class LoginUserDto {
+  @IsEmail()
+  public email: string;
+
+  @IsString()
   public password: string;
 }

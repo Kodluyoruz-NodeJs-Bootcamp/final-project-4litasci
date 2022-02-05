@@ -2,7 +2,7 @@ import { compare, hash } from 'bcrypt';
 import config from 'config';
 import { sign } from 'jsonwebtoken';
 import { EntityRepository, Repository } from 'typeorm';
-import { CreateUserDto } from '@dtos/users.dto';
+import { CreateUserDto, LoginUserDto } from '@dtos/users.dto';
 import { UserEntity } from '@entities/users.entity';
 import { HttpException } from '@exceptions/HttpException';
 import { DataStoredInToken, TokenData } from '@interfaces/auth.interface';
@@ -18,18 +18,20 @@ class AuthService extends Repository<UserEntity> {
     if (findUser) throw new HttpException(409, `You're email ${userData.email} already exists`);
 
     const hashedPassword = await hash(userData.password, 10);
-    const createUserData: User = await UserEntity.create({ ...userData, password: hashedPassword }).save();
+    const createUserData: User = await UserEntity.create({ ...userData, password: hashedPassword, provider: 1 }).save();
     return createUserData;
   }
 
-  public async login(userData: CreateUserDto): Promise<{ cookie: string; findUser: User; token: string }> {
+  public async login(userData: LoginUserDto): Promise<{ cookie: string; findUser: User; token: string }> {
     if (isEmpty(userData)) throw new HttpException(400, "You're not userData");
 
     const findUser: User = await UserEntity.findOne({ where: { email: userData.email } });
     if (!findUser) throw new HttpException(409, `You're email ${userData.email} not found`);
 
+    if (findUser.provider !== 1) throw new HttpException(409, 'Your provider not matching');
+
     const isPasswordMatching: boolean = await compare(userData.password, findUser.password);
-    if (!isPasswordMatching) throw new HttpException(409, "You're password not matching");
+    if (!isPasswordMatching) throw new HttpException(409, 'Your password not matching');
 
     const tokenData = this.createToken(findUser);
     const cookie = this.createCookie(tokenData);

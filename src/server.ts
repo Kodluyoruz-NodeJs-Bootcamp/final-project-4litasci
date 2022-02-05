@@ -7,9 +7,10 @@ import IndexRoute from '@routes/index.route';
 import UsersRoute from '@routes/users.route';
 import ActorsRoute from '@routes/actors.route';
 import MoviesRoute from '@routes/movies.route';
+import SocialRoute from '@routes/social.auth.route';
 
 validateEnv();
 
-const app = new App([new IndexRoute(), new UsersRoute(), new AuthRoute(), new ActorsRoute(), new MoviesRoute()]);
+const app = new App([new IndexRoute(), new UsersRoute(), new AuthRoute(), new ActorsRoute(), new MoviesRoute(), new SocialRoute()]);
 
 app.listen();

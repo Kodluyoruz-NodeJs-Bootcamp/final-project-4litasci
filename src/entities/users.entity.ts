@@ -1,4 +1,4 @@
-import { IsNotEmpty } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, Unique, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 import { User } from '@interfaces/users.interface';
 
@@ -8,9 +8,17 @@ export class UserEntity extends BaseEntity implements User {
   id: number;
 
   @Column()
+  @IsNumber()
+  provider: number; //email: 1 , facebook: 2, google: 3
+
+  @Column()
   @IsNotEmpty()
   @Unique(['email'])
   email: string;
+
+  @Column()
+  @IsString()
+  fullName: string;
 
   @Column()
   @IsNotEmpty()

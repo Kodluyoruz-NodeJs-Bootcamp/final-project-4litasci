@@ -10,6 +10,7 @@ const baseURL = 'http://127.0.0.1:3000';
 export function RegisterPage() {
   const history = useHistory();
   const [email, setEmail] = useState('');
+  const [fullName, setFullName] = useState('');
   const [password, setPassword] = useState('');
   const [infoValue, setInfoValue] = useState('');
   useEffect(() => {}, []);
@@ -18,6 +19,7 @@ export function RegisterPage() {
     const userJson = {
       email: email,
       password: password,
+      fullName: fullName,
     };
     axios
       .post(`${baseURL}/signup`, userJson, {
@@ -27,7 +29,7 @@ export function RegisterPage() {
       })
       .then(json => {
         console.log(json);
-        history.push('/login')
+        history.push('/login');
       })
       .catch(err => {
         console.log(err.response.data);
@@ -43,6 +45,12 @@ export function RegisterPage() {
       <Container maxWidth="lg">
         <Stack spacing={5}>
           <Box></Box>
+          <TextField
+            id="fullname"
+            label="Full Name"
+            variant="outlined"
+            onChange={e => setFullName(e.target.value)}
+          />
           <TextField
             id="email"
             label="Email"

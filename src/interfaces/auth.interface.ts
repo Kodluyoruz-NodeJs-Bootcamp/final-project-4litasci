@@ -13,3 +13,10 @@ export interface TokenData {
 export interface RequestWithUser extends Request {
   user: User;
 }
+
+export interface FacebookAuthUser {
+  email: string;
+  first_name: string;
+  last_name: string;
+  id: string;
+}

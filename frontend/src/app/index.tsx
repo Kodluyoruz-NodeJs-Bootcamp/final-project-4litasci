@@ -10,6 +10,7 @@ import { useTranslation } from 'react-i18next';
 import { RegisterPage } from './pages/Register/Loadable';
 import { LoginPage } from "./pages/Login/Loadable";
 import { ProfilePage } from "./pages/Profile/Loadable";
+import { FacebookAuth } from "./auth/facebook";
 
 export function App() {
   const { i18n } = useTranslation();
@@ -28,6 +29,7 @@ export function App() {
         <Route exact path="/register" component={RegisterPage} />
         <Route exact path="/login" component={LoginPage} />
         <Route exact path="/profile" component={ProfilePage} />
+        <Route exact path="/authenticate/facebook" component={FacebookAuth} />
         <Route component={NotFoundPage} />
       </Switch>
       <GlobalStyle />
