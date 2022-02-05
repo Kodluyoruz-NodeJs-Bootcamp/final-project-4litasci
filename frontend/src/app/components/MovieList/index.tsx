@@ -15,7 +15,8 @@ import FirstPageIcon from '@mui/icons-material/FirstPage';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
-import { Card, ImageListItem } from '@mui/material';
+import { Card, ImageListItem, Typography } from '@mui/material';
+import { useHistory } from 'react-router-dom';
 
 function TablePaginationActions(props) {
   const theme = useTheme();
@@ -86,14 +87,11 @@ TablePaginationActions.propTypes = {
   rowsPerPage: PropTypes.number.isRequired,
 };
 
-function createData(name, description, thumbnail, createDate) {
-  return { name, description, createDate };
-}
-
 export default function CustomPaginationActionsTable(props) {
+  const history = useHistory();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const { movieList } = props;
+  const { movieList, isMyLinked } = props;
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - movieList.length) : 0;
@@ -120,7 +118,14 @@ export default function CustomPaginationActionsTable(props) {
           ).map(row => (
             <TableRow key={row.name}>
               <TableCell component="th" scope="row">
-                {row.name}
+                <Typography
+                  color={'blue'}
+                  onClick={() => {
+                    history.push(isMyLinked ? '/movie/my/' + row.id:'/movie/' + row.id);
+                  }}
+                >
+                  {row.name}
+                </Typography>
               </TableCell>
               <TableCell component="th" scope="row">
                 <Card variant="outlined">

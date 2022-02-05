@@ -139,6 +139,20 @@ export default function Navbar(props) {
     >
       <MenuItem
         onClick={() => {
+          history.push('/profile/add/movie');
+        }}
+      >
+        Add Movie
+      </MenuItem>
+      <MenuItem
+        onClick={() => {
+          history.push('/profile/add/actor');
+        }}
+      >
+        Add Actor
+      </MenuItem>
+      <MenuItem
+        onClick={() => {
           history.push('/profile');
         }}
       >

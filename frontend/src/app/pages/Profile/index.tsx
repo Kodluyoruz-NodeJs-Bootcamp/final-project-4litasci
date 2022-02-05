@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
-import CustomPaginationActionsTable from '../../components/MovieList';
-import { Container } from '@mui/material';
+import MovieListContainer from '../../components/MovieList';
+import {Container, Typography} from '@mui/material';
 import axios from 'axios';
 import Navbar from "../../components/Navbar";
 const baseURL = 'http://127.0.0.1:3000';
@@ -21,8 +21,11 @@ export function ProfilePage() {
       </Helmet>
       <Container maxWidth="lg">
         <Navbar />
-        <CustomPaginationActionsTable
-          movieList={movieList.length > 0 ? movieList : []}
+        <Typography variant="h3" component="div" gutterBottom>
+          My Movies
+        </Typography>
+        <MovieListContainer
+          movieList={movieList.length > 0 ? movieList : []} isMyLinked = {true}
         />
       </Container>
     </>

@@ -4,11 +4,12 @@ import { HttpException } from '@exceptions/HttpException';
 import { Movie } from '@interfaces/movies.interface';
 import { isEmpty } from '@utils/util';
 import { MovieEntity } from '@entities/movie.entity';
+import { User } from '@/interfaces/users.interface';
 
 @EntityRepository()
 class MovieService extends Repository<MovieEntity> {
   public async findAllMovies(): Promise<Movie[]> {
-    const movies: Movie[] = await MovieEntity.find();
+    const movies: Movie[] = await MovieEntity.find({ where: { isVisible: true } });
     return movies;
   }
 
@@ -21,7 +22,18 @@ class MovieService extends Repository<MovieEntity> {
     return findMovie;
   }
 
-  public async createMovie(movieData: CreateMovieDto): Promise<Movie> {
+  public async createMovie(movieData: CreateMovieDto, userData: User): Promise<Movie> {
+    if (isEmpty(movieData)) throw new HttpException(400, "You're not movieData");
+
+    const findMovie: Movie = await MovieEntity.findOne({ where: { name: movieData.name } });
+    if (findMovie) throw new HttpException(409, `You're movie ${movieData.name} already exists`);
+
+    const createMovieData: Movie = await MovieEntity.create({ ...movieData, creatorId: userData.id }).save();
+
+    return createMovieData;
+  }
+
+  public async createMovieMock(movieData: CreateMovieDto): Promise<Movie> {
     if (isEmpty(movieData)) throw new HttpException(400, "You're not movieData");
 
     const findMovie: Movie = await MovieEntity.findOne({ where: { name: movieData.name } });

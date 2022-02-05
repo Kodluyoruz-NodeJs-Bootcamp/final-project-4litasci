@@ -3,6 +3,7 @@ import MovieService from '@services/movie.service';
 import { Movie } from '@interfaces/movies.interface';
 import { CreateMovieDto } from '@dtos/movies.dto';
 import config from 'config';
+import { RequestWithUser } from '@interfaces/auth.interface';
 
 class MoviesController {
   public movieService = new MovieService();
@@ -28,10 +29,10 @@ class MoviesController {
     }
   };
 
-  public createMovie = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  public createMovie = async (req: RequestWithUser, res: Response, next: NextFunction): Promise<void> => {
     try {
       const movieData: CreateMovieDto = req.body;
-      const createMovieData: Movie = await this.movieService.createMovie(movieData);
+      const createMovieData: Movie = await this.movieService.createMovie(movieData, req.user);
 
       res.status(201).json({ data: createMovieData, message: 'created' });
     } catch (error) {
@@ -44,7 +45,7 @@ class MoviesController {
       const movieDataArray: CreateMovieDto[] = config.get('mockMovies');
       const newMovies: Movie[] = [];
       for (const movieData of movieDataArray) {
-        const newMovie: Movie = await this.movieService.createMovie(movieData);
+        const newMovie: Movie = await this.movieService.createMovieMock(movieData);
         newMovies.push(newMovie);
       }
 
