@@ -39,6 +39,17 @@ class MoviesController {
     }
   };
 
+  public getMyMovieById = async (req: RequestWithUser, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const movieId = Number(req.params.id);
+      const findOneMovieData: Movie = await this.movieService.findMyMovieById(movieId, req.user);
+
+      res.status(200).json({ data: findOneMovieData, message: 'findOne' });
+    } catch (error) {
+      next(error);
+    }
+  };
+
   public createMovie = async (req: RequestWithUser, res: Response, next: NextFunction): Promise<void> => {
     try {
       const movieData: CreateMovieDto = req.body;
@@ -65,11 +76,11 @@ class MoviesController {
     }
   };
 
-  public updateMovie = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  public updateMovie = async (req: RequestWithUser, res: Response, next: NextFunction): Promise<void> => {
     try {
       const movieId = Number(req.params.id);
       const movieData: CreateMovieDto = req.body;
-      const updateMovieData: Movie = await this.movieService.updateMovie(movieId, movieData);
+      const updateMovieData: Movie = await this.movieService.updateMovie(movieId, movieData, req.user);
 
       res.status(200).json({ data: updateMovieData, message: 'updated' });
     } catch (error) {
@@ -77,10 +88,10 @@ class MoviesController {
     }
   };
 
-  public deleteMovie = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  public deleteMovie = async (req: RequestWithUser, res: Response, next: NextFunction): Promise<void> => {
     try {
       const movieId = Number(req.params.id);
-      const deleteMovieData: Movie = await this.movieService.deleteMovie(movieId);
+      const deleteMovieData: Movie = await this.movieService.deleteMovie(movieId, req.user);
 
       res.status(200).json({ data: deleteMovieData, message: 'deleted' });
     } catch (error) {

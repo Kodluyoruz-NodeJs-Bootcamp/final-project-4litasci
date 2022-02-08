@@ -1,4 +1,4 @@
-import { IsString, IsUrl } from 'class-validator';
+import { IsBoolean, IsString, IsUrl } from 'class-validator';
 
 export class CreateActorDto {
   @IsString()
@@ -9,4 +9,7 @@ export class CreateActorDto {
 
   @IsUrl()
   thumbnail: string;
+
+  @IsBoolean()
+  isVisible: boolean;
 }

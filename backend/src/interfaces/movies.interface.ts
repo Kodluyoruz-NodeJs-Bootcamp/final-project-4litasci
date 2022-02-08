@@ -3,4 +3,6 @@ export interface Movie {
   name: string;
   description: string;
   thumbnail: string;
+  creatorId: number;
+  isVisible: boolean;
 }

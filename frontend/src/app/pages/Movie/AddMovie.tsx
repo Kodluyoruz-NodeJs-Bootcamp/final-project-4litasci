@@ -22,6 +22,7 @@ export function AddMovie() {
       name: movieName,
       description: movieDescription,
       thumbnail: movieThumbnail,
+      isVisible: false,
     };
     axios
       .post(`${baseURL}/movies`, movieJson, {

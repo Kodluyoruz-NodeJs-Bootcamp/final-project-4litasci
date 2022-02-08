@@ -29,6 +29,12 @@ export class ActorEntity extends BaseEntity implements Actor {
   @UpdateDateColumn()
   updatedAt: Date;
 
+  @Column()
+  creatorId: number = 1;
+
+  @Column()
+  isVisible: boolean = false;
+
   @ManyToMany(() => MovieEntity, (movie: MovieEntity) => movie.actors)
   movies: Movie[];
 }

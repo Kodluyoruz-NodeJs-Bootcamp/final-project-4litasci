@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, IsUrl } from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsString, IsUrl } from 'class-validator';
 
 export class CreateMovieDto {
   @IsString()
@@ -10,4 +10,7 @@ export class CreateMovieDto {
 
   @IsUrl()
   thumbnail: string;
+
+  @IsBoolean()
+  isVisible: boolean;
 }

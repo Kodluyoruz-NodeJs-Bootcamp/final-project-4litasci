@@ -3,4 +3,6 @@ export interface Actor {
   fullName: string;
   description: string;
   thumbnail: string;
+  creatorId: number;
+  isVisible: boolean;
 }
