@@ -13,7 +13,7 @@ import { ProfilePage } from './pages/Profile/Loadable';
 import { FacebookAuth } from './auth/facebook';
 import { GoogleAuth } from './auth/google';
 import { AddMovie } from './pages/Movie/AddMovie';
-import { AddActor } from './pages/Movie/AddActor';
+import { AddActor } from './pages/Actor/AddActor';
 
 export function App() {
   const { i18n } = useTranslation();

@@ -9,7 +9,7 @@ import { User } from '@interfaces/users.interface';
 @EntityRepository()
 class ActorService extends Repository<ActorEntity> {
   public async findAllActors(): Promise<Actor[]> {
-    const actors: Actor[] = await ActorEntity.find();
+    const actors: Actor[] = await ActorEntity.find({ where: { isVisible: true } });
     return actors;
   }
 

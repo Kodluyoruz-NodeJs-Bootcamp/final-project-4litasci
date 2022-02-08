@@ -1,19 +1,30 @@
 import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
 import CustomPaginationActionsTable from '../../components/MovieList';
-import { Container } from '@mui/material';
+import { Container, Typography } from '@mui/material';
 import axios from 'axios';
-import Navbar from "../../components/Navbar";
+import Navbar from '../../components/Navbar';
 const baseURL = 'http://127.0.0.1:3000';
 export function HomePage() {
   const [movieList, setMovies] = React.useState([]);
+  const [actorList, setActors] = React.useState([]);
   React.useEffect(() => {
-    console.log('opened');
+    getMovies();
+    getActors();
+  }, []);
+  const getMovies = () => {
     axios.get(`${baseURL}/movies`).then(response => {
       console.log(response.data.data);
       setMovies(response.data.data);
     });
-  }, []);
+  };
+
+  const getActors = () => {
+    axios.get(`${baseURL}/actors`).then(response => {
+      console.log(response.data.data);
+      setActors(response.data.data);
+    });
+  };
   return (
     <>
       <Helmet>
@@ -22,8 +33,17 @@ export function HomePage() {
       </Helmet>
       <Container maxWidth="lg">
         <Navbar />
+        <Typography variant="h4" component="div" gutterBottom>
+          Public Movies
+        </Typography>
         <CustomPaginationActionsTable
-          movieList={movieList.length > 0 ? movieList : []}
+          dataList={movieList.length > 0 ? movieList : []}
+        />
+        <Typography variant="h4" component="div" gutterBottom>
+          Public Actors
+        </Typography>
+        <CustomPaginationActionsTable
+          dataList={actorList.length > 0 ? actorList : []}
         />
       </Container>
     </>

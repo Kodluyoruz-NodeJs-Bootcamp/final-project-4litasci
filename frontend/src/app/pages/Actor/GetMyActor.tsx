@@ -6,7 +6,7 @@ import Navbar from '../../components/Navbar';
 import { useHistory } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 const baseURL = 'http://127.0.0.1:3000';
-export function AddActor() {
+export function GetMyActor() {
   const history = useHistory();
   const [actorName, setActorName] = useState('');
   const [actorDescription, setActorDescription] = useState('');
@@ -16,7 +16,7 @@ export function AddActor() {
   const [infoValue, setInfoValue] = useState('');
   useEffect(() => {}, []);
 
-  const handleAddActor = () => {
+  const handleUpdateActor = () => {
     const auth = localStorage.getItem('Authorization');
     const actorJson = {
       fullName: actorName,
@@ -43,8 +43,8 @@ export function AddActor() {
   return (
     <>
       <Helmet>
-        <title>Add Actor</title>
-        <meta name="description" content="Add Actor" />
+        <title>Update My Actor</title>
+        <meta name="description" content="Update My Actor" />
       </Helmet>
       <Container maxWidth="lg">
         <Navbar />
@@ -55,12 +55,14 @@ export function AddActor() {
             label="Actor Name"
             variant="outlined"
             onChange={e => setActorName(e.target.value)}
+            value={actorName}
           />
           <TextField
             id="description"
             label="Actor Description"
             variant="outlined"
             onChange={e => setActorDescription(e.target.value)}
+            value={actorDescription}
           />
           <TextField
             id="thumbnail"
@@ -68,6 +70,7 @@ export function AddActor() {
             variant="outlined"
             placeholder={actorThumbnail}
             onChange={e => setActorThumbnail(e.target.value)}
+            value={actorThumbnail}
           />
           <Box
             sx={{
@@ -80,8 +83,8 @@ export function AddActor() {
 
           <Button
             variant="contained"
-            title="Add Movie"
-            onClick={handleAddActor}
+            title="Update Actor"
+            onClick={handleUpdateActor}
           >
             Add Actor
           </Button>

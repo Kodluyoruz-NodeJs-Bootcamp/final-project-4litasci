@@ -91,10 +91,10 @@ export default function CustomPaginationActionsTable(props) {
   const history = useHistory();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const { movieList, isMyLinked } = props;
-  // Avoid a layout jump when reaching the last page with empty rows.
+  const { isMovieList, dataList, isMyLinked } = props;
+
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - movieList.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - dataList.length) : 0;
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -110,21 +110,23 @@ export default function CustomPaginationActionsTable(props) {
       <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
         <TableBody>
           {(rowsPerPage > 0
-            ? movieList.slice(
+            ? dataList.slice(
                 page * rowsPerPage,
                 page * rowsPerPage + rowsPerPage,
               )
-            : movieList
+            : dataList
           ).map(row => (
-            <TableRow key={row.name}>
+            <TableRow key={row.name !== undefined ? row.name : row.fullName}>
               <TableCell component="th" scope="row">
                 <Typography
                   color={'blue'}
                   onClick={() => {
-                    history.push(isMyLinked ? '/movie/my/' + row.id:'/movie/' + row.id);
+                    let url = isMovieList ? '/movie/' : '/actor/';
+                    url = isMyLinked ? url + 'my/' + row.id : url + row.id;
+                    history.push(url);
                   }}
                 >
-                  {row.name}
+                  {row.name !== undefined ? row.name : row.fullName}
                 </Typography>
               </TableCell>
               <TableCell component="th" scope="row">
@@ -155,7 +157,7 @@ export default function CustomPaginationActionsTable(props) {
             <TablePagination
               rowsPerPageOptions={[10, 50, 100, { label: 'All', value: -1 }]}
               colSpan={3}
-              count={movieList.length}
+              count={dataList.length}
               rowsPerPage={rowsPerPage}
               page={page}
               SelectProps={{

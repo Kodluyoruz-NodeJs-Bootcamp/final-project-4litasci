@@ -9,9 +9,12 @@ const baseURL = 'http://127.0.0.1:3000';
 export function ProfilePage() {
   const history = useHistory();
   const [movieList, setMovies] = React.useState([]);
+  const [actorList, setActors] = React.useState([]);
+
   React.useEffect(() => {
     checkAuthIsValid();
     getUserMovies();
+    getUserActors();
   }, []);
 
   const checkAuthIsValid = () => {
@@ -48,6 +51,24 @@ export function ProfilePage() {
         console.log(error);
       });
   };
+
+  const getUserActors = () => {
+    const authToken = localStorage.getItem('Authorization');
+    axios
+      .get(`${baseURL}/actors/my`, {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      })
+      .then(response => {
+        console.log(response.data.data);
+        setActors(response.data.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
   return (
     <>
       <Helmet>
@@ -60,8 +81,17 @@ export function ProfilePage() {
           My Movies
         </Typography>
         <MovieListContainer
-          movieList={movieList.length > 0 ? movieList : []}
+          dataList={movieList.length > 0 ? movieList : []}
           isMyLinked={true}
+          isMovieList={true}
+        />
+        <Typography variant="h3" component="div" gutterBottom>
+          My Actors
+        </Typography>
+        <MovieListContainer
+          dataList={actorList.length > 0 ? actorList : []}
+          isMyLinked={true}
+          isMovieList={false}
         />
       </Container>
     </>
