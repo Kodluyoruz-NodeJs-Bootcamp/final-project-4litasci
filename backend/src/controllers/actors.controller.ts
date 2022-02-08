@@ -3,6 +3,8 @@ import ActorService from '@services/actor.service';
 import { Actor } from '@interfaces/actors.interface';
 import { CreateActorDto } from '@dtos/actors.dto';
 import { RequestWithUser } from '@interfaces/auth.interface';
+import { UserEntity } from '@entities/users.entity';
+import { User } from '@interfaces/users.interface';
 
 class ActorsController {
   public actorService = new ActorService();
@@ -31,8 +33,9 @@ class ActorsController {
     try {
       const actorId = Number(req.params.id);
       const findOneActorData: Actor = await this.actorService.findActorById(actorId);
+      const getCreatorData: User = await UserEntity.findOne({ where: { id: findOneActorData.creatorId } });
 
-      res.status(200).json({ data: findOneActorData, message: 'findOne' });
+      res.status(200).json({ data: { ...findOneActorData, creatorName: getCreatorData.fullName }, message: 'findOne' });
     } catch (error) {
       next(error);
     }

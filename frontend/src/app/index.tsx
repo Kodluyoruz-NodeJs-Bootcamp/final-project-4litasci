@@ -14,6 +14,7 @@ import { FacebookAuth } from './auth/facebook';
 import { GoogleAuth } from './auth/google';
 import { AddMovie } from './pages/Movie/AddMovie';
 import { AddActor } from './pages/Actor/AddActor';
+import { GetActor } from './pages/Actor/GetActor';
 
 export function App() {
   const { i18n } = useTranslation();
@@ -34,6 +35,7 @@ export function App() {
         <Route exact path="/profile" component={ProfilePage} />
         <Route exact path="/profile/add/movie" component={AddMovie} />
         <Route exact path="/profile/add/actor" component={AddActor} />
+        <Route exact path="/actor/:id" component={GetActor} />
         <Route exact path="/authenticate/facebook" component={FacebookAuth} />
         <Route exact path="/authenticate/google" component={GoogleAuth} />
         <Route component={NotFoundPage} />

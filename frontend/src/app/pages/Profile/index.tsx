@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
-import MovieListContainer from '../../components/MovieList';
+import DataListContainer from '../../components/MovieList';
 import { Container, Typography } from '@mui/material';
 import axios from 'axios';
 import Navbar from '../../components/Navbar';
@@ -80,7 +80,7 @@ export function ProfilePage() {
         <Typography variant="h3" component="div" gutterBottom>
           My Movies
         </Typography>
-        <MovieListContainer
+        <DataListContainer
           dataList={movieList.length > 0 ? movieList : []}
           isMyLinked={true}
           isMovieList={true}
@@ -88,7 +88,7 @@ export function ProfilePage() {
         <Typography variant="h3" component="div" gutterBottom>
           My Actors
         </Typography>
-        <MovieListContainer
+        <DataListContainer
           dataList={actorList.length > 0 ? actorList : []}
           isMyLinked={true}
           isMovieList={false}

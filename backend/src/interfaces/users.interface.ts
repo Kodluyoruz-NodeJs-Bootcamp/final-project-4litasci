@@ -3,4 +3,5 @@ export interface User {
   email: string;
   password: string;
   provider: number;
+  fullName: string;
 }
