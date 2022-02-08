@@ -18,23 +18,23 @@ const baseURL = 'http://127.0.0.1:3000';
 interface RouteParams {
   id: string;
 }
-export function GetActor() {
+export function GetMovie() {
   const history = useHistory();
   let { id } = useParams<{ id: string }>();
-  const [actorName, setActorName] = useState('');
+  const [movieName, setMovieName] = useState('');
   const [creatorName, setCreatorName] = useState('');
-  const [actorDescription, setActorDescription] = useState('');
-  const [actorThumbnail, setActorThumbnail] = useState('');
+  const [movieDescription, setMovieDescription] = useState('');
+  const [movieThumbnail, setMovieThumbnail] = useState('');
   const [infoValue, setInfoValue] = useState('');
-  const [movieList, setMovies] = React.useState([]);
+  const [actorList, setActorList] = React.useState([]);
   useEffect(() => {
-    getActor();
+    getMovie();
   }, []);
 
-  const getActor = () => {
+  const getMovie = () => {
     const auth = localStorage.getItem('Authorization');
     axios
-      .get(`${baseURL}/actors/${id}`, {
+      .get(`${baseURL}/movies/${id}`, {
         headers: {
           'Content-type': 'application/json; charset=UTF-8',
           Authorization: `Bearer ${auth}`,
@@ -42,9 +42,9 @@ export function GetActor() {
       })
       .then(json => {
         console.log(json);
-        setActorName(json.data.data.fullName);
-        setActorDescription(json.data.data.description);
-        setActorThumbnail(json.data.data.thumbnail);
+        setMovieName(json.data.data.name);
+        setMovieDescription(json.data.data.description);
+        setMovieThumbnail(json.data.data.thumbnail);
         setCreatorName(json.data.data.creatorName);
       })
       .catch(err => {
@@ -52,7 +52,7 @@ export function GetActor() {
         setInfoValue(err.response.data.message);
       });
   };
-  const renderActorState =
+  const renderMovieState =
     infoValue.length > 0 ? (
       <>
         {' '}
@@ -68,14 +68,14 @@ export function GetActor() {
     ) : (
       <>
         <Typography variant="h4" component="div" gutterBottom>
-          <b>Name:</b> {actorName}
+          <b>Name:</b> {movieName}
         </Typography>
         <Typography variant="h5" component="div" gutterBottom>
-          <b>Description:</b> {actorDescription}
+          <b>Description:</b> {movieDescription}
         </Typography>
         <Card variant="outlined">
           <img
-            src={`${actorThumbnail}?w=164&h=164&fit=crop&auto=format`}
+            src={`${movieThumbnail}?w=164&h=164&fit=crop&auto=format`}
             width={200}
             height={200}
             loading="lazy"
@@ -88,23 +88,23 @@ export function GetActor() {
           Actor Movies
         </Typography>
         <DataListContainer
-          dataList={movieList.length > 0 ? movieList : []}
+          dataList={actorList.length > 0 ? actorList : []}
           isMyLinked={false}
-          isMovieList={true}
+          isMovieList={false}
         />
       </>
     );
   return (
     <>
       <Helmet>
-        <title>Get Actor</title>
-        <meta name="description" content="Get Actor" />
+        <title>Get Movie</title>
+        <meta name="description" content="Get Movie" />
       </Helmet>
       <Container maxWidth="lg">
         <Navbar />
         <Stack spacing={5}>
           <Box></Box>
-          {renderActorState}
+          {renderMovieState}
         </Stack>
       </Container>
     </>

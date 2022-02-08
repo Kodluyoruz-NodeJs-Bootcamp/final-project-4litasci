@@ -72,6 +72,9 @@ class MovieService extends Repository<MovieEntity> {
 
     if (userData.id !== findMovie.creatorId) throw new HttpException(401, "You're not owner");
 
+    const findMovieName: Movie = await MovieEntity.findOne({ where: { name: movieData.name } });
+    if (findMovieName) throw new HttpException(409, `You're actor ${movieData.name} already exists`);
+
     await MovieEntity.update(movieId, movieData);
 
     const updateMovie: Movie = await MovieEntity.findOne({ where: { id: movieId } });

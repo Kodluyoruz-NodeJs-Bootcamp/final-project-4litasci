@@ -16,6 +16,8 @@ import { AddMovie } from './pages/Movie/AddMovie';
 import { AddActor } from './pages/Actor/AddActor';
 import { GetActor } from './pages/Actor/GetActor';
 import { GetMyActor } from './pages/Actor/GetMyActor';
+import { GetMovie } from './pages/Movie/GetMovie';
+import {GetMyMovie} from "./pages/Movie/GetMyMovie";
 
 export function App() {
   const { i18n } = useTranslation();
@@ -38,6 +40,8 @@ export function App() {
         <Route exact path="/profile/add/actor" component={AddActor} />
         <Route exact path="/actor/:id" component={GetActor} />
         <Route exact path="/actor/my/:id" component={GetMyActor} />
+        <Route exact path="/movie/:id" component={GetMovie} />
+        <Route exact path="/movie/my/:id" component={GetMyMovie} />
         <Route exact path="/authenticate/facebook" component={FacebookAuth} />
         <Route exact path="/authenticate/google" component={GoogleAuth} />
         <Route component={NotFoundPage} />
