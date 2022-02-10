@@ -255,19 +255,7 @@ export default function Navbar(props) {
           >
             MYimdb
           </Typography>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
-              onChange={onSearchChange}
-            />
-          </Search>
-          <IconButton aria-label="search" onClick={handleSearch}>
-            <SearchIcon />
-          </IconButton>
+
           <Box sx={{ flexGrow: 1 }} />
           {renderLoginState}
         </Toolbar>

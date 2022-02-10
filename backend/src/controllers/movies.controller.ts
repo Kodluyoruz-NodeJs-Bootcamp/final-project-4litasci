@@ -86,6 +86,17 @@ class MoviesController {
       next(error);
     }
   };
+  public removeActorFromMovie = async (req: RequestWithUser, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const movieId = Number(req.params.id);
+      const movieData: AddActorMovieDto = req.body;
+      const updateMovieData: Movie = await this.movieService.removeActorFromMovie(movieId, movieData, req.user);
+
+      res.status(200).json({ data: updateMovieData, message: 'updated' });
+    } catch (error) {
+      next(error);
+    }
+  };
 
   public updateMovie = async (req: RequestWithUser, res: Response, next: NextFunction): Promise<void> => {
     try {

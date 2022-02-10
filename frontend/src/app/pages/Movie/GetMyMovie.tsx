@@ -105,7 +105,33 @@ export function GetMyMovie() {
       isVisible: isVisible,
     };
     axios
-      .put(`${baseURL}/movies/actor/${id}`, movieJson, {
+      .put(`${baseURL}/movies/actor/add/${id}`, movieJson, {
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+          Authorization: `Bearer ${auth}`,
+        },
+      })
+      .then(json => {
+        console.log(json);
+        history.push('/profile');
+      })
+      .catch(err => {
+        console.log(err.response.data);
+        setInfoValue(err.response.data.message);
+      });
+  };
+
+  const handleRemoveActor = () => {
+    const auth = localStorage.getItem('Authorization');
+    const movieJson = {
+      actorId: actorId,
+      name: movieName,
+      description: movieDescription,
+      thumbnail: movieThumbnail,
+      isVisible: isVisible,
+    };
+    axios
+      .put(`${baseURL}/movies/actor/remove/${id}`, movieJson, {
         headers: {
           'Content-type': 'application/json; charset=UTF-8',
           Authorization: `Bearer ${auth}`,
@@ -217,6 +243,14 @@ export function GetMyMovie() {
           onClick={handleAddActor}
         >
           Add Actor
+        </Button>
+        <Button
+          variant="contained"
+          title="Update Movie"
+          color="error"
+          onClick={handleRemoveActor}
+        >
+          Remove Actor
         </Button>
       </>
     );

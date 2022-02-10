@@ -23,10 +23,16 @@ class MoviesRoute implements Routes {
     this.router.post(`${this.path}/mock`, this.moviesController.createMockMovies);
     this.router.put(`${this.path}/:id(\\d+)`, authMiddleware, validationMiddleware(CreateMovieDto, 'body', true), this.moviesController.updateMovie);
     this.router.put(
-      `${this.path}/actor/:id(\\d+)`,
+      `${this.path}/actor/add/:id(\\d+)`,
       authMiddleware,
       validationMiddleware(AddActorMovieDto, 'body', true),
       this.moviesController.addActorToMovie,
+    );
+    this.router.put(
+      `${this.path}/actor/remove/:id(\\d+)`,
+      authMiddleware,
+      validationMiddleware(AddActorMovieDto, 'body', true),
+      this.moviesController.removeActorFromMovie,
     );
     this.router.delete(`${this.path}/:id(\\d+)`, authMiddleware, this.moviesController.deleteMovie);
   }
