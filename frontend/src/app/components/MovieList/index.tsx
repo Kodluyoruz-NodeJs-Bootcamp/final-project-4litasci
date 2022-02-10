@@ -126,7 +126,7 @@ export default function CustomPaginationActionsTable(props) {
                     history.push(url);
                   }}
                 >
-                  {row.name !== undefined ? row.name : row.fullName}
+                  {(row.name !== undefined ? row.name : row.fullName)+" ID:("+row.id+")"}
                 </Typography>
               </TableCell>
               <TableCell component="th" scope="row">

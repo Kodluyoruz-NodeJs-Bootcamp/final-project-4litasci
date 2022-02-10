@@ -38,12 +38,16 @@ export function HomePage() {
         </Typography>
         <CustomPaginationActionsTable
           dataList={movieList.length > 0 ? movieList : []}
+          isMyLinked={false}
+          isMovieList={true}
         />
         <Typography variant="h4" component="div" gutterBottom>
           Public Actors
         </Typography>
         <CustomPaginationActionsTable
           dataList={actorList.length > 0 ? actorList : []}
+          isMyLinked={false}
+          isMovieList={false}
         />
       </Container>
     </>

@@ -1,3 +1,5 @@
+import { Actor } from '@interfaces/actors.interface';
+
 export interface Movie {
   id: number;
   name: string;
@@ -5,4 +7,5 @@ export interface Movie {
   thumbnail: string;
   creatorId: number;
   isVisible: boolean;
+  actors: Actor[];
 }

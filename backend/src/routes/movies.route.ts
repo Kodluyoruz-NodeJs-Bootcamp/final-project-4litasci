@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { Routes } from '@interfaces/routes.interface';
 import validationMiddleware from '@middlewares/validation.middleware';
 import MoviesController from '@controllers/movies.controller';
-import { CreateMovieDto } from '@dtos/movies.dto';
+import { AddActorMovieDto, CreateMovieDto } from '@dtos/movies.dto';
 import authMiddleware from '@/middlewares/auth.middleware';
 
 class MoviesRoute implements Routes {
@@ -22,6 +22,12 @@ class MoviesRoute implements Routes {
     this.router.post(`${this.path}`, authMiddleware, validationMiddleware(CreateMovieDto, 'body'), this.moviesController.createMovie);
     this.router.post(`${this.path}/mock`, this.moviesController.createMockMovies);
     this.router.put(`${this.path}/:id(\\d+)`, authMiddleware, validationMiddleware(CreateMovieDto, 'body', true), this.moviesController.updateMovie);
+    this.router.put(
+      `${this.path}/actor/:id(\\d+)`,
+      authMiddleware,
+      validationMiddleware(AddActorMovieDto, 'body', true),
+      this.moviesController.addActorToMovie,
+    );
     this.router.delete(`${this.path}/:id(\\d+)`, authMiddleware, this.moviesController.deleteMovie);
   }
 }

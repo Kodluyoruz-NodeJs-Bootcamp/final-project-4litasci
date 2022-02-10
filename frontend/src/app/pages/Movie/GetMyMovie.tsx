@@ -25,6 +25,7 @@ export function GetMyMovie() {
   const [movieThumbnail, setMovieThumbnail] = useState('');
   const [isVisible, setIsVisible] = useState(false);
   const [infoValue, setInfoValue] = useState('');
+  const [actorId, setActorId] = useState(0);
   useEffect(() => {
     getMyMovie();
   }, []);
@@ -52,14 +53,14 @@ export function GetMyMovie() {
   };
   const handleUpdateMovie = () => {
     const auth = localStorage.getItem('Authorization');
-    const actorJson = {
+    const movieJson = {
       name: movieName,
       description: movieDescription,
       thumbnail: movieThumbnail,
       isVisible: isVisible,
     };
     axios
-      .put(`${baseURL}/movies/${id}`, actorJson, {
+      .put(`${baseURL}/movies/${id}`, movieJson, {
         headers: {
           'Content-type': 'application/json; charset=UTF-8',
           Authorization: `Bearer ${auth}`,
@@ -79,6 +80,32 @@ export function GetMyMovie() {
     const auth = localStorage.getItem('Authorization');
     axios
       .delete(`${baseURL}/movies/${id}`, {
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+          Authorization: `Bearer ${auth}`,
+        },
+      })
+      .then(json => {
+        console.log(json);
+        history.push('/profile');
+      })
+      .catch(err => {
+        console.log(err.response.data);
+        setInfoValue(err.response.data.message);
+      });
+  };
+
+  const handleAddActor = () => {
+    const auth = localStorage.getItem('Authorization');
+    const movieJson = {
+      actorId: actorId,
+      name: movieName,
+      description: movieDescription,
+      thumbnail: movieThumbnail,
+      isVisible: isVisible,
+    };
+    axios
+      .put(`${baseURL}/movies/actor/${id}`, movieJson, {
         headers: {
           'Content-type': 'application/json; charset=UTF-8',
           Authorization: `Bearer ${auth}`,
@@ -174,6 +201,22 @@ export function GetMyMovie() {
           onClick={handleDeleteMovie}
         >
           Delete Movie
+        </Button>
+        <TextField
+          id="description"
+          label="Actor Id"
+          variant="outlined"
+          type="number"
+          onChange={e => setActorId(parseInt(e.target.value))}
+          value={actorId}
+        />
+        <Button
+          variant="contained"
+          title="Update Movie"
+          color="success"
+          onClick={handleAddActor}
+        >
+          Add Actor
         </Button>
       </>
     );

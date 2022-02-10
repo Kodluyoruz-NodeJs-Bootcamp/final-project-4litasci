@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import MovieService from '@services/movie.service';
 import { Movie } from '@interfaces/movies.interface';
-import { CreateMovieDto } from '@dtos/movies.dto';
+import { AddActorMovieDto, CreateMovieDto } from '@dtos/movies.dto';
 import config from 'config';
 import { RequestWithUser } from '@interfaces/auth.interface';
 
@@ -71,6 +71,17 @@ class MoviesController {
       }
 
       res.status(201).json({ data: newMovies, message: 'created' });
+    } catch (error) {
+      next(error);
+    }
+  };
+  public addActorToMovie = async (req: RequestWithUser, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const movieId = Number(req.params.id);
+      const movieData: AddActorMovieDto = req.body;
+      const updateMovieData: Movie = await this.movieService.addActorToMovie(movieId, movieData, req.user);
+
+      res.status(200).json({ data: updateMovieData, message: 'updated' });
     } catch (error) {
       next(error);
     }

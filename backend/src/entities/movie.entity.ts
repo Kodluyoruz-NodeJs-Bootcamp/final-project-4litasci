@@ -1,5 +1,5 @@
 import { IsNotEmpty } from 'class-validator';
-import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToMany } from 'typeorm';
+import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToMany, JoinTable } from 'typeorm';
 import { Movie } from '@interfaces/movies.interface';
 import { Actor } from '@interfaces/actors.interface';
 import { ActorEntity } from '@entities/actor.entity';
@@ -36,5 +36,6 @@ export class MovieEntity extends BaseEntity implements Movie {
   isVisible: boolean = false;
 
   @ManyToMany(() => ActorEntity, (actor: ActorEntity) => actor.movies)
+  @JoinTable()
   actors: Actor[];
 }
