@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import ActorService from '@services/actor.service';
 import { Actor } from '@interfaces/actors.interface';
-import { CreateActorDto } from '@dtos/actors.dto';
+import { AddMovieActorDto, CreateActorDto } from '@dtos/actors.dto';
 import { RequestWithUser } from '@interfaces/auth.interface';
 import { UserEntity } from '@entities/users.entity';
 import { User } from '@interfaces/users.interface';
@@ -54,20 +54,41 @@ class ActorsController {
 
   public createActor = async (req: RequestWithUser, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const userData: CreateActorDto = req.body;
-      const createActorData: Actor = await this.actorService.createActor(userData, req.user);
+      const actorData: CreateActorDto = req.body;
+      const createActorData: Actor = await this.actorService.createActor(actorData, req.user);
 
       res.status(201).json({ data: createActorData, message: 'created' });
     } catch (error) {
       next(error);
     }
   };
-
   public updateActor = async (req: RequestWithUser, res: Response, next: NextFunction): Promise<void> => {
     try {
       const actorId = Number(req.params.id);
-      const userData: CreateActorDto = req.body;
-      const updateActorData: Actor = await this.actorService.updateActor(actorId, userData, req.user);
+      const actorData: CreateActorDto = req.body;
+      const updateActorData: Actor = await this.actorService.updateActor(actorId, actorData, req.user);
+
+      res.status(200).json({ data: updateActorData, message: 'updated' });
+    } catch (error) {
+      next(error);
+    }
+  };
+  public addMovieToActor = async (req: RequestWithUser, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const actorId = Number(req.params.id);
+      const actorData: AddMovieActorDto = req.body;
+      const updateActorData: Actor = await this.actorService.addMovieToActor(actorId, actorData, req.user);
+
+      res.status(200).json({ data: updateActorData, message: 'updated' });
+    } catch (error) {
+      next(error);
+    }
+  };
+  public removeMovieFromActor = async (req: RequestWithUser, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const actorId = Number(req.params.id);
+      const actorData: AddMovieActorDto = req.body;
+      const updateActorData: Actor = await this.actorService.removeMovieFromActor(actorId, actorData, req.user);
 
       res.status(200).json({ data: updateActorData, message: 'updated' });
     } catch (error) {

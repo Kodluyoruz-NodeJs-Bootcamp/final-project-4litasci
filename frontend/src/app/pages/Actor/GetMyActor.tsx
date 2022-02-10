@@ -1,14 +1,15 @@
 import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
 import {
-    Box,
-    Button,
-    Card,
-    Container, Link,
-    Stack,
-    Switch,
-    TextField,
-    Typography,
+  Box,
+  Button,
+  Card,
+  Container,
+  Link,
+  Stack,
+  Switch,
+  TextField,
+  Typography,
 } from '@mui/material';
 import axios from 'axios';
 import Navbar from '../../components/Navbar';
@@ -24,6 +25,7 @@ export function GetMyActor() {
   const [actorThumbnail, setActorThumbnail] = useState('');
   const [isVisible, setIsVisible] = useState(false);
   const [infoValue, setInfoValue] = useState('');
+  const [movieId, setMovieId] = useState(0);
   useEffect(() => {
     getMyActor();
   }, []);
@@ -73,7 +75,57 @@ export function GetMyActor() {
         setInfoValue(err.response.data.message);
       });
   };
+  const handleAddMovie = () => {
+    const auth = localStorage.getItem('Authorization');
+    const actorJson = {
+      fullName: actorName,
+      description: actorDescription,
+      thumbnail: actorThumbnail,
+      isVisible: isVisible,
+      movieId: movieId,
+    };
+    axios
+      .put(`${baseURL}/actors/movie/add/${id}`, actorJson, {
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+          Authorization: `Bearer ${auth}`,
+        },
+      })
+      .then(json => {
+        console.log(json);
+        history.push('/profile');
+      })
+      .catch(err => {
+        console.log(err.response.data);
+        setInfoValue(err.response.data.message);
+      });
+  };
 
+  const handleRemoveMovie = () => {
+    const auth = localStorage.getItem('Authorization');
+    const actorJson = {
+      fullName: actorName,
+      description: actorDescription,
+      thumbnail: actorThumbnail,
+      isVisible: isVisible,
+      movieId: movieId,
+    };
+    axios
+      .put(`${baseURL}/actors/movie/remove/${id}`, actorJson, {
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+          Authorization: `Bearer ${auth}`,
+        },
+      })
+      .then(json => {
+        console.log(json);
+        history.push('/profile');
+      })
+      .catch(err => {
+        console.log(err.response.data);
+        setInfoValue(err.response.data.message);
+      });
+  };
   const handleDeleteActor = () => {
     const auth = localStorage.getItem('Authorization');
     axios
@@ -101,7 +153,9 @@ export function GetMyActor() {
           textAlign: 'center',
         }}
       >
-        <Link href={window.location.origin+'/actor/'+id}>{window.location.origin+'/actor/'+id}</Link>
+        <Link href={window.location.origin + '/actor/' + id}>
+          {window.location.origin + '/actor/' + id}
+        </Link>
       </Box>
     </>
   ) : (
@@ -156,7 +210,7 @@ export function GetMyActor() {
           onChange={e => setIsVisible(e.target.checked)}
           inputProps={{ 'aria-label': 'controlled' }}
         />
-          {publicUrl}
+        {publicUrl}
         <Button
           variant="contained"
           title="Update Actor"
@@ -171,6 +225,30 @@ export function GetMyActor() {
           onClick={handleDeleteActor}
         >
           Delete Actor
+        </Button>
+        <TextField
+          id="description"
+          label="Movie Id"
+          variant="outlined"
+          type="number"
+          onChange={e => setMovieId(parseInt(e.target.value))}
+          value={movieId}
+        />
+        <Button
+          variant="contained"
+          title="Update Actor"
+          color="success"
+          onClick={handleAddMovie}
+        >
+          Add Movie
+        </Button>
+        <Button
+          variant="contained"
+          title="Update Actor"
+          color="error"
+          onClick={handleRemoveMovie}
+        >
+          Remove Movie
         </Button>
       </>
     );

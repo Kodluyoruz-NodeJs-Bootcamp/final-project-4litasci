@@ -46,6 +46,7 @@ export function GetActor() {
         setActorDescription(json.data.data.description);
         setActorThumbnail(json.data.data.thumbnail);
         setCreatorName(json.data.data.creatorName);
+        setMovies(json.data.data.movies);
       })
       .catch(err => {
         console.log(err.response.data);

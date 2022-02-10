@@ -193,13 +193,6 @@ export default function Navbar(props) {
       </MenuItem>
     </Menu>
   );
-  const onSearchChange = event => {
-    setSearchValue(event.target.value);
-  };
-
-  const handleSearch = event => {
-    console.log('search', searchValue);
-  };
 
   const renderLoginState = userLoggedIn ? (
     <>
