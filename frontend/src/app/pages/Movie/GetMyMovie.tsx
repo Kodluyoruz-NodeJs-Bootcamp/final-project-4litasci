@@ -5,6 +5,7 @@ import {
   Button,
   Card,
   Container,
+  Link,
   Stack,
   Switch,
   TextField,
@@ -92,7 +93,30 @@ export function GetMyMovie() {
         setInfoValue(err.response.data.message);
       });
   };
-
+  const publicUrl = isVisible ? (
+    <>
+      {' '}
+      <Box
+        sx={{
+          color: 'red',
+          textAlign: 'center',
+        }}
+      >
+        <Link href={window.location.origin + '/movie/' + id}>
+          {window.location.origin + '/movie/' + id}
+        </Link>
+      </Box>
+    </>
+  ) : (
+    <Box
+      sx={{
+        color: 'red',
+        textAlign: 'center',
+      }}
+    >
+      To see public link, make movie visible...
+    </Box>
+  );
   const renderMovieState =
     infoValue.length > 0 ? (
       <>
@@ -135,6 +159,7 @@ export function GetMyMovie() {
           onChange={e => setIsVisible(e.target.checked)}
           inputProps={{ 'aria-label': 'controlled' }}
         />
+        {publicUrl}
         <Button
           variant="contained"
           title="Update Actor"

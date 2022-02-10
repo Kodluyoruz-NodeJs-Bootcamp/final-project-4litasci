@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
 import {
-  Box,
-  Button,
-  Card,
-  Container,
-  Stack,
-  Switch,
-  TextField,
-  Typography,
+    Box,
+    Button,
+    Card,
+    Container, Link,
+    Stack,
+    Switch,
+    TextField,
+    Typography,
 } from '@mui/material';
 import axios from 'axios';
 import Navbar from '../../components/Navbar';
@@ -92,7 +92,28 @@ export function GetMyActor() {
         setInfoValue(err.response.data.message);
       });
   };
-
+  const publicUrl = isVisible ? (
+    <>
+      {' '}
+      <Box
+        sx={{
+          color: 'red',
+          textAlign: 'center',
+        }}
+      >
+        <Link href={window.location.origin+'/actor/'+id}>{window.location.origin+'/actor/'+id}</Link>
+      </Box>
+    </>
+  ) : (
+    <Box
+      sx={{
+        color: 'red',
+        textAlign: 'center',
+      }}
+    >
+      To see public link, make actor visible...
+    </Box>
+  );
   const renderActorState =
     infoValue.length > 0 ? (
       <>
@@ -135,6 +156,7 @@ export function GetMyActor() {
           onChange={e => setIsVisible(e.target.checked)}
           inputProps={{ 'aria-label': 'controlled' }}
         />
+          {publicUrl}
         <Button
           variant="contained"
           title="Update Actor"

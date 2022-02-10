@@ -61,7 +61,7 @@ class ActorService extends Repository<ActorEntity> {
       throw new HttpException(401, "You're not owner");
     }
     const findActorName: Actor = await ActorEntity.findOne({ where: { fullName: actorData.fullName } });
-    if (findActorName) throw new HttpException(409, `You're actor ${actorData.fullName} already exists`);
+    if (findActorName && findActor.id != actorId) throw new HttpException(409, `You're actor ${actorData.fullName} already exists`);
 
     await ActorEntity.update(actorId, actorData);
 
