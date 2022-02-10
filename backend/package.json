@@ -1,7 +1,7 @@
 {
   "name": "MYimdb",
   "version": "0.0.0",
-  "description": "TypeScript + TypeORM + PostgreSQL + Express API Server",
+  "description": "MYimdb Server",
   "author": "",
   "license": "ISC",
   "scripts": {
