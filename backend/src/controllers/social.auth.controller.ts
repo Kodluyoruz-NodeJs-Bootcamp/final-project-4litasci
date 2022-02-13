@@ -27,7 +27,7 @@ class SocialController {
         params: {
           client_id: config.get('facebookAuthID'),
           client_secret: config.get('facebookAuthSecret'),
-          redirect_uri: 'http://localhost:3001/authenticate/facebook/',
+          redirect_uri: 'https://myimdb-front.herokuapp.com/authenticate/facebook/',
           code: authCode,
         },
       });
@@ -70,7 +70,7 @@ class SocialController {
         data: {
           client_id: config.get('googleClientID'),
           client_secret: config.get('googleClientSecret'),
-          redirect_uri: 'http://localhost:3001/authenticate/google/',
+          redirect_uri: 'https://myimdb-front.herokuapp.com/authenticate/google/',
           grant_type: 'authorization_code',
           code: authCode,
         },

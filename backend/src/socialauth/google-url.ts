@@ -3,7 +3,7 @@ import config from 'config';
 
 const stringifiedParams = queryString.stringify({
   client_id: config.get('googleClientID'),
-  redirect_uri: 'http://localhost:3001/authenticate/google/',
+  redirect_uri: 'https://myimdb-front.herokuapp.com/authenticate/google/',
   scope: ['https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile'].join(' '),
   response_type: 'code',
   access_type: 'offline',
