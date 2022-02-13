@@ -1,10 +1,10 @@
 {
   "env": "development",
   "dbConfig": {
-    "host": "localhost",
-    "user": "root",
-    "password": "254ali254",
-    "database": "MYimdb"
+    "host": "eu-cdbr-west-02.cleardb.net",
+    "user": "b54dbd3e309dd2",
+    "password": "b7223a02",
+    "database": "heroku_929dcb350963269"
   },
   "facebookAuthID": "327932919249611",
   "facebookAuthSecret": "71095db9d1424fd81b0e5f2f50c92432",
