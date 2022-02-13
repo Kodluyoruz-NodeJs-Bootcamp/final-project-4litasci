@@ -9,7 +9,7 @@
     "dev": "cross-env NODE_ENV=development nodemon",
     "build:swc": "swc src -d dist --source-maps --copy-files",
     "build": "tsc && tsc-alias",
-    "tsc": "tsc",
+    "tsc": "./node_modules/typescript/bin/tsc",
     "postinstall": "npm run tsc",
     "test": "jest --forceExit --detectOpenHandles",
     "lint": "eslint --ignore-path .gitignore --ext .ts src/",
