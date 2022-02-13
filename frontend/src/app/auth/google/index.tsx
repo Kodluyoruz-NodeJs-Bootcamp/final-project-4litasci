@@ -4,7 +4,7 @@ import { Container } from '@mui/material';
 import queryString from 'query-string';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
-const baseURL = 'http://127.0.0.1:3000';
+const baseURL = 'https://myimdb-back.herokuapp.com';
 
 export function GoogleAuth(props) {
   const history = useHistory();

@@ -14,7 +14,7 @@ import axios from 'axios';
 import Navbar from '../../components/Navbar';
 import { useHistory, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-const baseURL = 'http://127.0.0.1:3000';
+const baseURL = 'https://myimdb-back.herokuapp.com';
 interface RouteParams {
   id: string;
 }

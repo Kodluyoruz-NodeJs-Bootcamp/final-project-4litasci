@@ -16,7 +16,7 @@ import Navbar from '../../components/Navbar';
 import { useHistory, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import DataListContainer from '../../components/MovieList';
-const baseURL = 'http://127.0.0.1:3000';
+const baseURL = 'https://myimdb-back.herokuapp.com';
 export function GetMyMovie() {
   const history = useHistory();
   let { id } = useParams<{ id: string }>();

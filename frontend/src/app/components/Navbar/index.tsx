@@ -14,7 +14,7 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import axios from 'axios';
 import { Button } from '@mui/material';
 import { useHistory } from 'react-router-dom';
-const baseURL = 'http://127.0.0.1:3000';
+const baseURL = 'https://myimdb-back.herokuapp.com';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',

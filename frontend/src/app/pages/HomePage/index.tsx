@@ -4,7 +4,7 @@ import CustomPaginationActionsTable from '../../components/MovieList';
 import { Container, Typography } from '@mui/material';
 import axios from 'axios';
 import Navbar from '../../components/Navbar';
-const baseURL = 'http://127.0.0.1:3000';
+const baseURL = 'https://myimdb-back.herokuapp.com';
 export function HomePage() {
   const [movieList, setMovies] = React.useState([]);
   const [actorList, setActors] = React.useState([]);

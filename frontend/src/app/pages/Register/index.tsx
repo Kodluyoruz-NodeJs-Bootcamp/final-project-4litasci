@@ -6,7 +6,7 @@ import axios from 'axios';
 import Navbar from '../../components/Navbar';
 import { useHistory } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-const baseURL = 'http://127.0.0.1:3000';
+const baseURL = 'https://myimdb-back.herokuapp.com';
 export function RegisterPage() {
   const history = useHistory();
   const [email, setEmail] = useState('');

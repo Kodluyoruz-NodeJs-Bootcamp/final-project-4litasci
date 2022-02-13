@@ -5,7 +5,7 @@ import { Container, Typography } from '@mui/material';
 import axios from 'axios';
 import Navbar from '../../components/Navbar';
 import { useHistory } from 'react-router-dom';
-const baseURL = 'http://127.0.0.1:3000';
+const baseURL = 'https://myimdb-back.herokuapp.com';
 export function ProfilePage() {
   const history = useHistory();
   const [movieList, setMovies] = React.useState([]);
