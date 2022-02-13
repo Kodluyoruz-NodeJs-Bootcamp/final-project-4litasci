@@ -63,7 +63,7 @@ class MovieService extends Repository<MovieEntity> {
     const findMovie: Movie = await MovieEntity.findOne({ where: { name: movieData.name } });
     if (findMovie) throw new HttpException(409, `You're movie ${movieData.name} already exists`);
 
-    const createMovieData: Movie = await MovieEntity.create(movieData).save();
+    const createMovieData: Movie = await MovieEntity.create({ ...movieData, creatorId: 21, isVisible: true }).save();
 
     return createMovieData;
   }

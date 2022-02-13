@@ -27,7 +27,7 @@ data: "Facebook Login Url with callback /social/facebook";
 POST:
 Request:
 {
-     authCode: "Auth Code From Google Login"
+     authCode: "Auth Code From Facebook Login"
 }
 
 Response:
@@ -69,9 +69,9 @@ this.router.get(`/actors`, this.actorsController.getActors);
 this.router.get(`/actors/123`, this.actorsController.getActorById);
     //Returns actor if isVisible:true
 this.router.get(`/actors/my/123`, authMiddleware, this.actorsController.getMyActorById);
-    //Returns user actor auth Required
+    //Returns user's actor auth Required
 this.router.get(`/actors/my`, authMiddleware, this.actorsController.getMyActors);
-    //Returns users all actors auth Required
+    //Returns user's all actors auth Required
 this.router.post(`/actors`, authMiddleware, validationMiddleware(CreateActorDto, 'body'), this.actorsController.createActor);
     //Creates new actor
 this.router.put(`/actors/123`, authMiddleware, validationMiddleware(CreateActorDto, 'body', true), this.actorsController.updateActor);
@@ -82,16 +82,51 @@ this.router.put(
     validationMiddleware(AddMovieActorDto, 'body', true),
     this.actorsController.addMovieToActor,
 );
-    //Adds movie to Actor
+    //Adds movie to actor
 this.router.put(
     `/actors/movie/remove/123`,
     authMiddleware,
     validationMiddleware(AddMovieActorDto, 'body', true),
     this.actorsController.removeMovieFromActor,
 );
-    //Deletes movie from Actor
+    //Deletes movie from actor
 this.router.delete(`/actors/123`, authMiddleware, this.actorsController.deleteActor);
-    //Deletes Actor
+    //Deletes actor
+```
+
+# Movies
+```js
+// 123 = :id(\\d+)
+this.router.get(`/movies`, this.moviesController.getMovies);
+    //Returns all movies isVisible:true
+this.router.get(`/movies/123`, this.moviesController.getMovieById);
+    //Returns movie if isVisible:true
+this.router.get(`/movies/my/123`, authMiddleware, this.moviesController.getMyMovieById);
+    //Returns user's movie auth Required
+this.router.get(`/movies/my`, authMiddleware, this.moviesController.getMyMovies);
+    //Returns user's all movies auth Required
+this.router.post(`/movies`, authMiddleware, validationMiddleware(CreateMovieDto, 'body'), this.moviesController.createMovie);
+    //Creates new movie
+this.router.post(`/movies/mock`, this.moviesController.createMockMovies);
+    //Creates mock movies
+this.router.put(`/movies/123`, authMiddleware, validationMiddleware(CreateMovieDto, 'body', true), this.moviesController.updateMovie);
+    //Updates movie
+this.router.put(
+    `/movies/actor/add/123`,
+    authMiddleware,
+    validationMiddleware(AddActorMovieDto, 'body', true),
+    this.moviesController.addActorToMovie,
+);
+    //Adds actor to movie
+this.router.put(
+    `/movies/actor/remove/123`,
+    authMiddleware,
+    validationMiddleware(AddActorMovieDto, 'body', true),
+    this.moviesController.removeActorFromMovie,
+);
+    //Deletes actor from movie
+this.router.delete(`/movies/123`, authMiddleware, this.moviesController.deleteMovie);
+    //Deletes movie
 ```
 # Deployments
 /backend
