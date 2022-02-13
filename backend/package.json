@@ -41,9 +41,7 @@
     "typeorm": "^0.2.34",
     "winston": "^3.3.3",
     "winston-daily-rotate-file": "^4.5.5",
-    "typescript": "^4.5.2"
-  },
-  "devDependencies": {
+    "typescript": "^4.5.2",
     "@swc/cli": "^0.1.51",
     "@swc/core": "^1.2.108",
     "@types/bcrypt": "^5.0.0",
@@ -82,5 +80,8 @@
     "ts-node": "^10.4.0",
     "tsc-alias": "^1.4.1",
     "tsconfig-paths": "^3.10.1"
+  },
+  "devDependencies": {
+
   }
 }
